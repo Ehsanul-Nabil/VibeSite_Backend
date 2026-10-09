@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const googleAuth=async (req,res)=>{
+    // console.log("test")
     try {
         const {name,email,avatar}=req.body
         if(!email){
