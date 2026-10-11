@@ -1,2 +1,9 @@
 .env
-/node_modules
+node_modules/
+
+
+#  /node_module 
+#The leading slash / in /node_modules anchors the rule strictly to the root directory where the .gitignore file sits.
+
+#node_module/
+# Adding a trailing slash (/) at the end of a line in .gitignore tells Git to only match directories (folders), not files.

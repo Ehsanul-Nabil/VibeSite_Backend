@@ -33,6 +33,6 @@ app.use("/api/user", userRouter)
 
 // 4. Start Server
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`)
+    console.log(`Server started on port http://localhost:${port}`)
     connectDb()
 })
