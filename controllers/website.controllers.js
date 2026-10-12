@@ -353,8 +353,7 @@ export const changes = async (req, res) => {
                 {
                 "message": "Short confirmation",
                 "code": "<UPDATED FULL HTML>"
-                }
-`
+                }`
 
         let raw = ""
         let parsed = null
