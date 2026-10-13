@@ -357,13 +357,27 @@ export const changes = async (req, res) => {
 
         let raw = ""
         let parsed = null
-        for (let i = 0; i < 2 && !parsed; i++) {
-            raw = await generateResponse(updatePrompt)
-            parsed = await extractJson(raw)
+        // for (let i = 0; i < 2 && !parsed; i++) {
+        //     raw = await generateResponse(updatePrompt)
+        //     parsed = await extractJson(raw)
 
-            if (!parsed) {
-                raw = await generateResponse(updatePrompt + "\n\nRETURN ONLY RAW JSON.")
+        //     if (!parsed) {
+        //         raw = await generateResponse(updatePrompt + "\n\nRETURN ONLY RAW JSON.")
+        //         parsed = await extractJson(raw)
+        //     }
+        // }
+
+        for (let i = 0; i < 2 && !parsed; i++) {
+            try {
+                raw = await generateResponse(updatePrompt)
                 parsed = await extractJson(raw)
+
+                if (!parsed) {
+                    raw = await generateResponse(updatePrompt + "\n\nRETURN ONLY RAW JSON.")
+                    parsed = await extractJson(raw)
+                }
+            } catch (error) {
+                console.log("Error extracting or generating JSON:", error)
             }
         }
 
@@ -373,8 +387,8 @@ export const changes = async (req, res) => {
         }
 
         website.conversation.push(
-            { role: "ai", content: parsed.message },
-            { role: "user", content: prompt }
+            { role: "user", content: prompt },
+            { role: "ai", content: parsed.message }
         )
 
         website.latestCode = parsed.code
