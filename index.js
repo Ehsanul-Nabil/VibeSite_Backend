@@ -7,10 +7,13 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import userRouter from "./routes/user.routes.js"
 import websiteRouter from "./routes/website.routes.js"
+import billingRouter from "./routes/billing.routes.js"
+import {stripeWebhook} from "./controllers/stripWebhook.controller.js"
+
 
 const app = express()
 const port = process.env.PORT || 5000
-
+app.post("/api/stripe/webhook",express.raw({type:"application/json"}),stripeWebhook)
 // 1. Global Middleware (Must come before routes)
 app.use(cors({
     origin: "http://localhost:5173",
@@ -32,6 +35,7 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
 app.use("/api/website", websiteRouter)
+app.use("/api/billing", billingRouter)
 
 // 4. Start Server
 app.listen(port, () => {
