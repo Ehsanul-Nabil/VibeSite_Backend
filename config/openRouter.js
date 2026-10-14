@@ -1,6 +1,8 @@
 const openRouterUrl = "https://openrouter.ai/api/v1/chat/completions"
 // const openRouterApiKey=process.env.OPENROUTER_API_KEY
 const model="deepseek/deepseek-chat"
+// const model = "cohere/north-mini-code:free";
+// const model = "nvidia/nemotron-3-ultra-550b-a55b:free";
 
 export const generateResponse=async (prompt) => {
   const res = await fetch(openRouterUrl, {
@@ -21,7 +23,8 @@ export const generateResponse=async (prompt) => {
         content: prompt ,
       },
     ],
-    temperature:0.2
+    temperature:0.2,
+    max_tokens: 8000
   }),
 });
 
