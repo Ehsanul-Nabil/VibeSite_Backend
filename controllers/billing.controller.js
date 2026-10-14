@@ -1,6 +1,9 @@
 import { PLANS } from "../config/plan.js"
 import stripe from "../config/stripe.js"
 
+const isProduction = process.env.NODE_ENV === "production";
+
+
 export const billing = async (req, res) => {
     try {
         const { planType } = req.body

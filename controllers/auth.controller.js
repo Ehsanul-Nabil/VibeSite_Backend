@@ -1,6 +1,16 @@
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
+// Check if current environment is production
+const isProduction = process.env.NODE_ENV === "production";
+
+/**
+ * Dynamic cookie options for res.cookie()
+ * - Localhost (Development): secure = false, sameSite = "strict"
+ * - Production: secure = true, sameSite = "none"
+ */
+
+
 export const googleAuth=async (req,res)=>{
     console.log("googleAuth Login Func")
     try {
@@ -19,8 +29,8 @@ export const googleAuth=async (req,res)=>{
 
         res.cookie("token",token,{
             httpOnly:true,
-            secure:false,
-            sameSite:"strict",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "strict",
             maxAge:7*24*60*60*1000
         })
 
@@ -34,8 +44,8 @@ export const logOut=async (req,res)=>{
     try {
         res.clearCookie("token",{
             httpOnly:true,
-            secure:false,
-            sameSite:"strict"
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "strict",
         })
         return res.status(200).json({message:"logout successfully"})
     } catch (error) {
