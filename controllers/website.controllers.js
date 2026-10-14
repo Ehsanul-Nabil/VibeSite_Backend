@@ -445,6 +445,7 @@ export const deploy = async (req, res) => {
         })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: `get all websites error ${error}` })
     }
 }
