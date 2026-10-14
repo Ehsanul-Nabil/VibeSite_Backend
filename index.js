@@ -15,10 +15,16 @@ const app = express()
 const port = process.env.PORT || 5000
 app.post("/api/stripe/webhook",express.raw({type:"application/json"}),stripeWebhook)
 // 1. Global Middleware (Must come before routes)
+// app.use(cors({
+//     origin: "http://localhost:5173",
+//     credentials: true
+// }))
+
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
-}))
+  origin: true, // Dynamically reflects the requesting origin back to the browser
+  credentials: true
+}));
 app.use(express.json())
 app.use(cookieParser())
 
