@@ -425,7 +425,7 @@ export const deploy = async (req, res) => {
     try {
         const website = await Website.findOne({
             _id: req.params.id,
-            // user: req.user._id
+            user: req.user._id
         })
 
         if (!website) {
@@ -453,7 +453,6 @@ export const getBySlug = async (req, res) => {
     try {
         const website = await Website.findOne({
             slug: req.params.slug,
-            user: req.user._id
         })
 
         if (!website) {
